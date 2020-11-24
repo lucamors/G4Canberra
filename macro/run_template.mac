@@ -1,0 +1,10 @@
+/run/initialize
+/control/verbose 0
+/run/verbose 0
+/event/verbose 0
+/tracking/verbose 0
+
+/analysis/setFileName na22_test
+
+/run/printProgress 10000
+/run/beamOn 1000000
