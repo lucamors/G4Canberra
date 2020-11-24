@@ -9,8 +9,10 @@ The Detector geometry was reconstructed using a CAD software starting from the f
 
 Below are shown two views of the detector assembly.
 <figure>
-<img src="docs/canberra_cryo_5_plus_sezione.jpg"  width = "400" /><img src="docs/canberra_cryo_5_plus.jpg" width = "400" />
-<figcaption><p> &emsp;&emsp;&emsp;&emsp;(a) Side view &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; (b) Front View<p></figcaption>
+<p float="left">
+<img src="docs/canberra_cryo_5_plus_sezione.jpg"  width = "300" /><img src="docs/canberra_cryo_5_plus.jpg" width = "300" />
+</p>
+<figcaption><p> &emsp;&emsp;&emsp;&emsp;(a) Side view &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(b) Front View<p></figcaption>
 </figure>
 
 The conversion from ASCII STL format (inside Geometry/CanberraHPGe) to GDML is performed using the [CADMesh](https://github.com/christopherpoole/CADMesh) Library.
