@@ -4,7 +4,7 @@ A Geant4 implementation of the Mirion Canberra ReGe Detector + Cryo Pulse 5 Cool
 
 ## Detector Implementation
 The Detector geometry was reconstructed using a CAD software starting from the following resources:
-1. Cryo Pulse 5 Datasheet [here](docs/cryo-pulse_5_plus_spec_sheet.pdf)
+1. Cryo Pulse 5 Datasheet [here](docs/cryo-pulse_5_plus_spec_sheet.pdf).
 2. HPGe ReGe Detector Geometry Datasheet.
 
 Below are shown two views of the detector assembly.
