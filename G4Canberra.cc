@@ -16,6 +16,7 @@
 
 // User Defined Action and Initialization Classes
 #include "G4CanberraDetectorConstruction.hh"
+#include "G4CanberraPhysicsList.hh"
 #include "G4CanberraPrimaryGeneratorAction.hh"
 #include "G4CanberraEventAction.hh"
 #include "G4CanberraRunAction.hh"
@@ -53,9 +54,9 @@ int main(int argc, char** argv)
   // ---------------------------------------------------------------------------
   G4CanberraDetectorConstruction * det   = new G4CanberraDetectorConstruction();
 
-  // Pre-Defined Physics List
+  // User Defined Physics List
   G4PhysListFactory factory;
-  G4VModularPhysicsList* phys = factory.GetReferencePhysList("QBBC");
+  G4CanberraPhysicsList * phys = new G4CanberraPhysicsList();
   phys->SetVerboseLevel(0);
 
   runManager->SetUserInitialization(det);
