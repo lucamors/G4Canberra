@@ -57,27 +57,27 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
   //////////////////////////////////////////////////////////////////////////////
 
   // Canberra BOX
-  auto hpge_box_mesh                 = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/scatola.stl");
+  auto hpge_box_mesh                 = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/box.stl");
   G4VSolid* hpge_box_solid           = hpge_box_mesh->GetSolid();
   G4LogicalVolume * hpge_box_logical = new G4LogicalVolume(hpge_box_solid, airMaterial, "hpge_box");
 
   // Crystal
-  auto hpge_mesh                 = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/cristallo_germanio.stl");
+  auto hpge_mesh                 = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/crystal.stl");
   G4VSolid* hpge_solid           = hpge_mesh->GetSolid();
   G4LogicalVolume * hpge_logical = new G4LogicalVolume(hpge_solid, germaniumMaterial, "hpge_crystal");
 
   // Canberra Beryllium Window
-  auto hpge_window_mesh          = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/lamina_berillio.stl");
+  auto hpge_window_mesh          = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/beryllium_window.stl");
   G4VSolid* hpge_window_solid    = hpge_window_mesh->GetSolid();
   G4LogicalVolume* hpge_window_logical = new G4LogicalVolume(hpge_window_solid, berylliumMaterial, "hpge_window");
 
   // Internal Case
-  auto internal_case_mesh                = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/involucro_interno.stl");
+  auto internal_case_mesh                = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/inner_holder.stl");
   G4VSolid* internal_case_solid          = internal_case_mesh->GetSolid();
   G4LogicalVolume* internal_case_logical = new G4LogicalVolume(internal_case_solid, aluminumMaterial, "hpge_involucro_interno");
 
   // External Case
-  auto external_case_mesh = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/involucro_esterno.stl");
+  auto external_case_mesh = CADMesh::TessellatedMesh::FromSTL("Geometry/CanberraHPGe/cold_end.stl");
   G4VSolid* external_case_solid = external_case_mesh->GetSolid();
   G4LogicalVolume* external_case_logical = new G4LogicalVolume(external_case_solid, aluminumMaterial, "hpge_involucro_esterno");
 

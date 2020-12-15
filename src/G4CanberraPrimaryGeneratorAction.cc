@@ -25,7 +25,6 @@ fParticleGun(nullptr)
   fParticleGun->SetParticleEnergy(511.0*CLHEP::keV);
 
   // Defining source-detector distance
-  fSourceDetectorDistance = 5.0*cm;
 
 }
 
@@ -49,7 +48,7 @@ void G4CanberraPrimaryGeneratorAction::GeneratePrimaries(G4Event * event)
   fParticleGun->SetParticleMomentumDirection(G4ThreeVector(x,y,z));
 
   // Set Beam Origin
-  fParticleGun->SetParticlePosition(G4ThreeVector(0*cm,17.1*cm, (58.9+fSourceDetectorDistance)*cm));
+  fParticleGun->SetParticlePosition(G4ThreeVector(-10*cm,0,0*cm));
 
   // Generate primary vertex
   fParticleGun->GeneratePrimaryVertex(event);
