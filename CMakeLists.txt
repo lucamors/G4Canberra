@@ -13,11 +13,11 @@ project(G4CANBERRA)
 set(IRIS_SCRIPTS
     macro/vis.mac
     macro/run_template.mac
-    Geometry/CanberraHPGe/cristallo_germanio.stl
-    Geometry/CanberraHPGe/involucro_interno.stl
-    Geometry/CanberraHPGe/involucro_esterno.stl
-    Geometry/CanberraHPGe/lamina_berillio.stl
-    Geometry/CanberraHPGe/scatola.stl
+    Geometry/CanberraHPGe/crystal.stl
+    Geometry/CanberraHPGe/box.stl
+    Geometry/CanberraHPGe/cold_end.stl
+    Geometry/CanberraHPGe/inner_holder.stl
+    Geometry/CanberraHPGe/beryllium_window.stl
   )
 
 foreach(_script ${IRIS_SCRIPTS})
