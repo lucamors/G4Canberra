@@ -29,6 +29,7 @@ class G4CanberraDetectorConstruction : public G4VUserDetectorConstruction
     G4Material * berylliumMaterial;
     G4Material * leadMaterial;
     G4Material * aluminumMaterial;
+    G4Material * plexyglassMaterial;
 
 
 

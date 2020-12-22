@@ -13,6 +13,9 @@ G4CanberraPhysicsList::G4CanberraPhysicsList()
 	// Default physics
 	RegisterPhysics(new G4DecayPhysics());
 
+	// Radioactive Decay Physics
+	RegisterPhysics(new G4RadioactiveDecayPhysics());
+
 	// EM physics
 	RegisterPhysics(new G4EmLivermorePhysics());
 

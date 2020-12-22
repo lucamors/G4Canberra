@@ -36,12 +36,13 @@ void G4CanberraDetectorConstruction::DefineMaterials()
   // Define Materials
   G4NistManager * nistManager = G4NistManager::Instance();
 
-  airMaterial       = nistManager->FindOrBuildMaterial("G4_AIR");
-  steelMaterial     = nistManager->FindOrBuildMaterial("G4_STAINLESS-STEEL");
-  germaniumMaterial = nistManager->FindOrBuildMaterial("G4_Ge");
-  berylliumMaterial = nistManager->FindOrBuildMaterial("G4_Be");
-  leadMaterial      = nistManager->FindOrBuildMaterial("G4_Pb");
-  aluminumMaterial  = nistManager->FindOrBuildMaterial("G4_Al");
+  airMaterial        = nistManager->FindOrBuildMaterial("G4_AIR");
+  steelMaterial      = nistManager->FindOrBuildMaterial("G4_STAINLESS-STEEL");
+  germaniumMaterial  = nistManager->FindOrBuildMaterial("G4_Ge");
+  berylliumMaterial  = nistManager->FindOrBuildMaterial("G4_Be");
+  leadMaterial       = nistManager->FindOrBuildMaterial("G4_Pb");
+  aluminumMaterial   = nistManager->FindOrBuildMaterial("G4_Al");
+  plexyglassMaterial = nistManager->FindOrBuildMaterial("G4_PLEXIGLASS");
 
   return ;
 }
@@ -82,6 +83,12 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
   G4LogicalVolume* external_case_logical = new G4LogicalVolume(external_case_solid, aluminumMaterial, "hpge_involucro_esterno");
 
   //////////////////////////////////////////////////////////////////////////////
+  // Source Container
+  //////////////////////////////////////////////////////////////////////////////
+  G4Box * source_container_solid = new G4Box("container_solid", 5*mm,5*mm,5*mm);
+  G4LogicalVolume * source_container_logical = new G4LogicalVolume(source_container_solid, plexyglassMaterial, "source_container");
+
+  //////////////////////////////////////////////////////////////////////////////
   // Detector Placement
   //////////////////////////////////////////////////////////////////////////////
 
@@ -94,15 +101,12 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
                                                         0,
                                                         true);
 
-  // Axis Rotations
-  G4RotationMatrix* m90rotX = new G4RotationMatrix();
-  m90rotX->rotateX(90*deg);
-  G4RotationMatrix* m90rotY = new G4RotationMatrix();
-  m90rotY->rotateY(90*deg);
+  G4double source_distance = -25*cm;
+  G4ThreeVector source_to_detector_position = G4ThreeVector(0,0,source_distance);
 
   // // Placing HPGe Box
-  new G4PVPlacement(m90rotY,
-                    G4ThreeVector(),
+  new G4PVPlacement(0,
+                    source_to_detector_position,
                     hpge_box_logical,
                     "HPGe Box",
                     world_logical,
@@ -111,8 +115,8 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
                     true);
 
   // Placing HPGe Crystal
-  new G4PVPlacement(m90rotY,
-                    G4ThreeVector(),
+  new G4PVPlacement(0,
+                    source_to_detector_position,
                     hpge_logical,
                     "HPGe Crystal",
                     world_logical,
@@ -121,8 +125,8 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
                     true);
 
   // Placing Beryllium Window
-  new G4PVPlacement(m90rotY,
-                    G4ThreeVector(),
+  new G4PVPlacement(0,
+                    source_to_detector_position,
                     hpge_window_logical,
                     "HPGe Window",
                     world_logical,
@@ -132,8 +136,8 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
 
 
   // Placing Internal Case
-  new G4PVPlacement(m90rotY,
-                    G4ThreeVector(),
+  new G4PVPlacement(0,
+                    source_to_detector_position,
                     internal_case_logical,
                     "HPGe Internal Case",
                     world_logical,
@@ -142,14 +146,27 @@ G4VPhysicalVolume * G4CanberraDetectorConstruction::Construct()
                     true);
 
   // Placing External Case
-  new G4PVPlacement(m90rotY,
-                    G4ThreeVector(),
+  new G4PVPlacement(0,
+                    source_to_detector_position,
                     external_case_logical,
                     "HPGe External Case",
                     world_logical,
                     false,
                     0,
                     true);
+
+  // Placing Source Container
+  new G4PVPlacement(0,
+                    G4ThreeVector(),
+                    source_container_logical,
+                    "Source Container",
+                    world_logical,
+                    false,
+                    0,
+                    true
+                    );
+
+
 
   //////////////////////////////////////////////////////////////////////////////
   // Visualization Attributes

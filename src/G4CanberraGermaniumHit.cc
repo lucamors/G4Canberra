@@ -35,3 +35,10 @@ void G4CanberraGermaniumHit::SetEdep(G4double edep)
   fEdep = edep;
   return ;
 }
+
+void G4CanberraGermaniumHit::SetTime(G4double time)
+{
+	fTime = time;
+
+	return ;
+}

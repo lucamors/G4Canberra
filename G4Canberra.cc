@@ -65,7 +65,7 @@ int main(int argc, char** argv)
   // Set Mandatory action classes
   // ---------------------------------------------------------------------------
   G4CanberraPrimaryGeneratorAction * kin   = new G4CanberraPrimaryGeneratorAction();
-  G4CanberraRunAction              * run   = new G4CanberraRunAction();
+  G4CanberraRunAction              * run   = new G4CanberraRunAction(phys, kin);
   G4CanberraEventAction            * event = new G4CanberraEventAction();
 
   runManager->SetUserAction(kin);

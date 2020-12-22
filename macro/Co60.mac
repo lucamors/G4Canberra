@@ -1,0 +1,21 @@
+# General Settings
+# ------------------------------------
+/run/initialize
+/control/verbose 2
+/analysis/verbose 1
+
+# 1. Source Isotopic Composition
+# ------------------------------------
+# /source/add <A> <Z> <Q> <LVL/Ex> <amount>
+
+# 60-Co
+/source/add 60 27 0 0 1
+
+# Set Source Activity
+# E.g. 1 mCi // unit is Bq
+/source/activity 37000000
+
+# Run Information
+/analysis/setFileName Co60_25cm_livermore
+/run/printProgress 100000
+/run/beamOn 10000000

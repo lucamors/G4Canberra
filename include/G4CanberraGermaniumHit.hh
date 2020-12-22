@@ -27,11 +27,14 @@ class G4CanberraGermaniumHit : public G4VHit
 
     // User Hit Interface
     void     SetEdep(G4double );
+    void     SetTime(G4double );
     G4double GetEdep(){ return fEdep; }
+    G4double GetTime(){ return fTime; }
 
   private:
 
     G4double fEdep;
+    G4double fTime;
 
 };
 

@@ -1,11 +1,19 @@
 #include "G4CanberraEventAction.hh"
+#include "G4CanberraEventActionMessenger.hh"
 #include "G4SDManager.hh"
 #include "G4Event.hh"
 
+#include "Randomize.hh"
+
 G4CanberraEventAction::G4CanberraEventAction()
-: G4UserEventAction(), fGermaniumHCID(-1)
+: G4UserEventAction(),fEventID(0), fEventTime(0.0), fGermaniumHCID(-1),fSourceActivity(0.0)
 {
+  // Retrieve instance of G$AnalysisManager
   fAnalysisManager = G4AnalysisManager::Instance();
+
+  // Retrieve a EventActionMessenger
+  fEventMessenger = new G4CanberraEventActionMessenger(this);
+
 }
 
 G4CanberraEventAction::~G4CanberraEventAction(){}
@@ -28,13 +36,17 @@ G4CanberraGermaniumHitsCollection* G4CanberraEventAction::GetHitsCollection(G4in
 
 void G4CanberraEventAction::BeginOfEventAction(const G4Event* event)
 {
+    // Updating global time by sampling
+    // from an exponential distribution
+    // with mean 1/Activity
+    UpdateGlobalTime();
 
   return ;
 }
 
 void G4CanberraEventAction::EndOfEventAction(const G4Event* event)
 {
-
+  // Retrieve event hit collection
   if( fGermaniumHCID == -1)
   {
     fGermaniumHCID = G4SDManager::GetSDMpointer()->GetCollectionID("GermaniumHitsCollection");
@@ -42,19 +54,50 @@ void G4CanberraEventAction::EndOfEventAction(const G4Event* event)
 
   auto germaniumHC = GetHitsCollection(fGermaniumHCID, event);
 
-
-  G4double event_energy = 0;
+  // Saving hit collection to ROOT TTree
+  G4double hit_energy, hit_time;
 
   for (size_t i = 0; i < germaniumHC->GetSize(); i++)
   {
-    event_energy += (*germaniumHC)[i]->GetEdep();
+    hit_energy = (*germaniumHC)[i]->GetEdep();
+    hit_time   = (*germaniumHC)[i]->GetTime();
+
+    fAnalysisManager->FillNtupleDColumn(0,0,fEventID);
+    fAnalysisManager->FillNtupleDColumn(0,1,hit_energy);
+    fAnalysisManager->FillNtupleDColumn(0,2,hit_time+fEventTime);
+    // std::cout << "fTime : " << fEventTime << std::endl;
+    // std::cout << "hit time : " << hit_time << std::endl;
+    // std::cout << "hit time + EventTime : " << hit_time+fEventTime << std::endl;
+    fAnalysisManager->AddNtupleRow(0);
+
   }
 
-  if(event_energy <= 0) return ;
+  // Saving Source time distribution
+  fAnalysisManager->FillNtupleDColumn(1,0, fEventTime);
+  fAnalysisManager->AddNtupleRow(1);
 
-  fAnalysisManager->FillNtupleDColumn(0,event_energy);
-  fAnalysisManager->AddNtupleRow();
-
+  // Updating Event counter
+  fEventID += 1;
 
   return ;
 }
+
+void G4CanberraEventAction::UpdateGlobalTime()
+{
+
+  G4double holdup = G4RandExponential::shoot(1.0/fSourceActivity)/CLHEP::picosecond;
+  fEventTime += holdup;
+
+  return ;
+}
+
+G4double G4CanberraEventAction::GetEventTime(){ return fEventTime; }
+
+void G4CanberraEventAction::SetSourceActivity(G4double act)
+{
+  fSourceActivity = act;
+
+  return ;
+}
+
+G4double G4CanberraEventAction::GetSourceActivity(){ return fSourceActivity; }

@@ -34,8 +34,12 @@ G4bool G4CanberraGermaniumSD::ProcessHits(G4Step* step, G4TouchableHistory* )
   G4CanberraGermaniumHit * hit = new G4CanberraGermaniumHit();
 
   // Retrieve Deposited Energy inside active volume
-  auto edep = step->GetTotalEnergyDeposit()/CLHEP::keV;
+  G4double edep = step->GetTotalEnergyDeposit()/CLHEP::keV;
+  // Retrieve Hit Time relative to the beginning of the current event
+  G4double time = step->GetTrack()->GetGlobalTime()/CLHEP::picosecond;
+
   hit->SetEdep(edep);
+  hit->SetTime(time);
   fGermaniumHitsCollection->insert(hit);
 
   return true;

@@ -6,6 +6,8 @@
 #include "G4CanberraGermaniumHit.hh"
 #include "Analysis.hh"
 
+class G4CanberraEventActionMessenger;
+
 class G4CanberraEventAction : public G4UserEventAction
 {
   public:
@@ -16,15 +18,25 @@ class G4CanberraEventAction : public G4UserEventAction
     virtual void BeginOfEventAction(const G4Event* event);
     virtual void EndOfEventAction(const G4Event* event);
 
+    void UpdateGlobalTime();
+    void SetSourceActivity(G4double );
+
+    G4double GetSourceActivity();
+
+    G4double GetEventTime();
+
   private:
 
     G4CanberraGermaniumHitsCollection* GetHitsCollection(G4int hcID, const G4Event* event) const;
 
-    // Data Member
-    G4AnalysisManager * fAnalysisManager;
 
-    G4int fGermaniumHCID;
+    G4int    fEventID;
+    G4double fEventTime;
+    G4int    fGermaniumHCID;
+    G4double fSourceActivity;
 
+    G4AnalysisManager              * fAnalysisManager;
+    G4CanberraEventActionMessenger * fEventMessenger;
 
 };
 

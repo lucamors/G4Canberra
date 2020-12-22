@@ -18,6 +18,8 @@ set(IRIS_SCRIPTS
     Geometry/CanberraHPGe/cold_end.stl
     Geometry/CanberraHPGe/inner_holder.stl
     Geometry/CanberraHPGe/beryllium_window.stl
+    macro/sort.cc
+    macro/Co60.mac
   )
 
 foreach(_script ${IRIS_SCRIPTS})
